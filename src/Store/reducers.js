@@ -14,6 +14,18 @@ const isLoggedIn = (state = true, action) => {
   }
 };
 
+const user = (state = {}, action) => {
+  switch (action.type) {
+    case 'LOGIN': {
+      return { ...action.payload.user };
+    }
+    default: {
+      return state;
+    }
+  }
+};
+
 export default combineReducers({
   isLoggedIn,
+  user,
 });

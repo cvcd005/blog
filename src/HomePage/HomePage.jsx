@@ -2,14 +2,13 @@ import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import {LogOut} from '../Store/actions';
-import LoginPage from '../LoginPage';
 
 const HomePage = (props) => {
-  const { isLoggedIn, LogOut } = props;
+  const { isLoggedIn, LogOut, user } = props;
   if (isLoggedIn) {
     return (
       <div>This is Homepage
-        <span>UserName</span>
+        <span>{user.username}</span>
         <button type="button" onClick={LogOut}>Exit</button>
       </div>
     )
@@ -26,6 +25,7 @@ const actionCreators = {
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
+    user: state.user,
   }
 };
 
