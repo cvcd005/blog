@@ -1,8 +1,15 @@
 import React from 'react';
+import { Redirect } from 'react-router-dom';
 
 const HomePage = (props) => {
+  const { isLoggedIn } = props;
+  if (isLoggedIn) {
+    return (
+      <div>This is Homepage</div>
+    )
+  } 
   return (
-    <div>This is Homepage</div>
+   <Redirect to="/blog/login" />
   )
 }
 
