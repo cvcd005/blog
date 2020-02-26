@@ -1,4 +1,5 @@
 import React from 'react';
+import { BrowserRouter, Route} from 'react-router-dom';
 
 import HomePage from '../HomePage';
 import LoginPage from '../LoginPage';
@@ -8,11 +9,11 @@ import './App.scss';
 
 const App = (props) => {
   return (
-    <>
-      <HomePage />
-      <LoginPage />
-      <RegisterPage />
-    </>
+    <BrowserRouter>
+      <Route path="/blog" component={HomePage} exact/>
+      <Route path="/blog/login" component={LoginPage} />
+      <Route path="/blog/signup" component={RegisterPage} />
+    </BrowserRouter>
   )
 }
 
