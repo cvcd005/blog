@@ -1,5 +1,6 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 const HomePage = (props) => {
   const { isLoggedIn } = props;
@@ -13,4 +14,10 @@ const HomePage = (props) => {
   )
 }
 
-export default HomePage;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  }
+};
+
+export default connect(mapStateToProps)(HomePage);

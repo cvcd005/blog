@@ -1,5 +1,8 @@
 import React from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
+import { Provider } from 'react-redux';
+
+import Store from '../Store';
 
 import HomePage from '../HomePage';
 import LoginPage from '../LoginPage';
@@ -14,11 +17,13 @@ class App extends React.Component {
 
   render() {
     return (
-      <BrowserRouter>
-        <Route path="/blog" component={HomePage} exact/>
-        <Route path="/blog/login" component={LoginPage} />
-        <Route path="/blog/signup" component={RegisterPage} />
-      </BrowserRouter>
+        <Provider store={Store}>
+        <BrowserRouter>
+          <Route path="/blog" component={HomePage} exact/>
+          <Route path="/blog/login" component={LoginPage} />
+          <Route path="/blog/signup" component={RegisterPage} />
+        </BrowserRouter>
+        </Provider>
     )
   }
 }
