@@ -1,12 +1,17 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import {LogOut} from '../Store/actions';
+import LoginPage from '../LoginPage';
 
 const HomePage = (props) => {
-  const { isLoggedIn } = props;
+  const { isLoggedIn, LogOut } = props;
   if (isLoggedIn) {
     return (
-      <div>This is Homepage</div>
+      <div>This is Homepage
+        <span>UserName</span>
+        <button type="button" onClick={LogOut}>Exit</button>
+      </div>
     )
   } 
   return (
@@ -14,10 +19,14 @@ const HomePage = (props) => {
   )
 }
 
+const actionCreators = {
+  LogOut: LogOut,
+};
+
 const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
   }
 };
 
-export default connect(mapStateToProps)(HomePage);
+export default connect(mapStateToProps, actionCreators)(HomePage);

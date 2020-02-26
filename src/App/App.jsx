@@ -18,11 +18,11 @@ class App extends React.Component {
   render() {
     return (
         <Provider store={Store}>
-        <BrowserRouter>
-          <Route path="/blog" component={HomePage} exact/>
-          <Route path="/blog/login" component={LoginPage} />
-          <Route path="/blog/signup" component={RegisterPage} />
-        </BrowserRouter>
+          <BrowserRouter>
+            <Route path="/blog" component={HomePage} exact/>
+            <Route path="/blog/login" component={LoginPage} />
+            <Route path="/blog/signup" component={RegisterPage} />
+          </BrowserRouter>
         </Provider>
     )
   }
