@@ -1,44 +1,73 @@
 import React from 'react';
-import {Link} from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
-import { signIn, createThunk } from '../Api/Api';
-import { LogIn } from '../Store/actions';
-
-const example = {
-  "user": {
-      "email": "vasay43@mail.ru",
-      "username": "vasay43",
-      "password": "12345678",
-    } 
-};
+import { signIn } from '../Api/Api';
+import { actionCreatorsSignIn } from '../Store/actions';
 
 
-const LoginPage = (props) => {
-  const { isLoggedIn, createThunk } = props;
+const validSchema = Yup.object({
+  password: Yup.string()
+    .matches(/^[a-zA-Z0-9]{0,}$/, "Password have only latin letters and digits")
+    .required("You must enter password"),
+  email: Yup.string()
+    .email("Invalid email address")
+    .required("You must enter email"),
+});
 
-  const click = async () => {
-    const response = await signIn(example);
+const submitForm = (createThunk, LogIn) => async (values, { setSubmitting, resetForm, setFieldError }) => {
+  try {
+    const response = await signIn({user: values});
     if (response.status == 200) {
-      createThunk(response.data, LogIn);
-      console.log(response.data);
+      resetForm();
+      setSubmitting(false);
+      const {email, token, username } = response.data.user;
+      createThunk(response.data, () => LogIn({email, token, username}));
     }
+  } catch (error) {
+    setFieldError('email', 'Check email');
+    setFieldError('password', 'Check password');
   }
+}
+
+const LoginPage = (props) =>  {
+  const { isLoggedIn, createThunk, LogIn} = props;
+
   if (isLoggedIn) {
     return <Redirect to="/blog" />
   }
+
   return (
     <div>This is Login Page
-      <button type="button" onClick={click}>click</button>
+      <Formik
+        initialValues={{ email: '', password: '' }}
+        validationSchema={validSchema}
+        onSubmit={submitForm(createThunk, LogIn)}
+      >
+        {props => (
+          <Form onSubmit={props.handleSubmit}>
+            <label htmlFor="email">Email
+              <Field type="email" name="email" />
+            </label>
+            <ErrorMessage name="email" component="div" />
+
+            <label htmlFor="password">Password
+              <Field type="password" name="password" />
+            </label>
+            <ErrorMessage name="password" component="div" />
+
+            <button type="submit" >
+              Submit
+            </button>
+          </Form>
+        )}
+      </Formik>
       <Link to="signup">Link to registration</Link>
     </div>
   )
-}
-
-const actionCreators = {
- LogIn: LogIn,
- createThunk: createThunk,
 };
 
 const mapStateToProps = (state) => {
@@ -47,4 +76,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, actionCreators)(LoginPage);
+export default connect(mapStateToProps, actionCreatorsSignIn)(LoginPage);
