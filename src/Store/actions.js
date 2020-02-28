@@ -7,6 +7,10 @@ export const LogIn = user => ({
   payload: { user },
 });
 
+export const Register = () => ({
+  type: 'REGISTER',
+});
+
 export const createThunk = (data, fn) => dispatch => {
   return dispatch(fn(data));
 };

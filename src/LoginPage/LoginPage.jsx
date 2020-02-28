@@ -21,11 +21,11 @@ const validSchema = Yup.object({
 const submitForm = (createThunk, LogIn) => async (values, { setSubmitting, resetForm, setFieldError }) => {
   try {
     const response = await signIn({user: values});
-    if (response.status == 200) {
+    if (response.status === 200) {
       resetForm();
       setSubmitting(false);
       const {email, token, username } = response.data.user;
-      createThunk(response.data, () => LogIn({email, token, username}));
+      createThunk({email, token, username}, LogIn);
     }
   } catch (error) {
     setFieldError('email', 'Check email');
@@ -34,7 +34,7 @@ const submitForm = (createThunk, LogIn) => async (values, { setSubmitting, reset
 }
 
 const LoginPage = (props) =>  {
-  const { isLoggedIn, createThunk, LogIn} = props;
+  const { isLoggedIn, createThunk, LogIn } = props;
 
   if (isLoggedIn) {
     return <Redirect to="/blog" />
