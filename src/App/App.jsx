@@ -4,28 +4,26 @@ import { Provider } from 'react-redux';
 
 import Store from '../Store';
 
+import Loader from '../Loader';
 import HomePage from '../HomePage';
 import LoginPage from '../LoginPage';
 import RegisterPage from '../RegisterPage';
 
+import 'antd/dist/antd.css';
 import './App.scss';
 
-class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
-  render() {
-    return (
-        <Provider store={Store}>
-          <BrowserRouter>
-            <Route path="/blog" component={HomePage} exact/>
-            <Route path="/blog/login" component={LoginPage} />
-            <Route path="/blog/signup" component={RegisterPage} />
-          </BrowserRouter>
-        </Provider>
-    )
-  }
-}
+const App = () => {
+  return (
+    <Provider store={Store}>
+      <BrowserRouter>
+        <Loader>
+          <Route path="/blog" component={HomePage} exact/>
+          <Route path="/blog/login" component={LoginPage} />
+          <Route path="/blog/signup" component={RegisterPage} />
+        </Loader>
+      </BrowserRouter>
+    </Provider>
+  )
+};
 
 export default App;

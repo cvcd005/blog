@@ -1,21 +1,26 @@
-export const LogOut = () => ({
+export const actionSignOut = () => ({
   type: 'LOGOUT',
 });
 
-export const LogIn = user => ({
+export const actionSignIn = user => ({
   type: 'LOGIN',
   payload: { user },
-});
-
-export const Register = () => ({
-  type: 'REGISTER',
 });
 
 export const createThunk = (data, fn) => dispatch => {
   return dispatch(fn(data));
 };
 
+export const createThunkSignIn = data => dispatch => {
+  return dispatch(actionSignIn(data));
+};
+
 export const actionCreatorsSignIn = {
-  LogIn,
+  actionSignIn,
   createThunk,
+  createThunkSignIn,
+};
+
+export const actionCreatorsSignOut = {
+  actionSignOut,
 };

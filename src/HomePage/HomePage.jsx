@@ -1,26 +1,36 @@
 import React from 'react';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-import {LogOut} from '../Store/actions';
 
-const HomePage = (props) => {
-  const { isLoggedIn, LogOut, user } = props;
+import { actionCreatorsSignOut } from '../Store/actions';
+import { clearLocalStorage } from '../Api/Api';
+
+const HomePage = props => {
+  const { isLoggedIn, actionSignOut, user } = props;
   if (isLoggedIn) {
     return (
-      <div>This is Homepage
-        <span>{user.username}</span>
-        <button type="button" onClick={LogOut}>Exit</button>
+      <div className="header">
+        This is Homepage
+        <div className="header_btn">
+          <span>{user.username}</span>
+          <button  
+            onClick={()=> {
+              clearLocalStorage();
+              actionSignOut()
+            }}
+            type="button"
+            className="btn-primary"
+          >
+            Exit
+          </button>
+        </div>
       </div>
-    )
+    );
   } 
   return (
    <Redirect to="/blog/login" />
   )
 }
-
-const actionCreators = {
-  LogOut: LogOut,
-};
 
 const mapStateToProps = (state) => {
   return {
@@ -29,4 +39,4 @@ const mapStateToProps = (state) => {
   }
 };
 
-export default connect(mapStateToProps, actionCreators)(HomePage);
+export default connect(mapStateToProps, actionCreatorsSignOut)(HomePage);
