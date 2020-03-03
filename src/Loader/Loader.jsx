@@ -6,9 +6,13 @@ import { actionCreatorsSignIn } from '../Store/actions';
 class Loader extends React.Component {
   componentDidMount() {
     const { actionSignIn } = this.props;
-    const user = JSON.parse(localStorage.getItem('user'));
-    if (user) {
-      actionSignIn(user);
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        actionSignIn(user);
+      }
+    } catch (e) {
+      console.timeLog('Can not read localStorage');
     }
   }
 
