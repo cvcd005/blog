@@ -41,28 +41,28 @@ body{
   justify-content: space-between;
   align-items: center;
 }
-.formWrapper {
+.form-wrapper {
   margin: 50px auto 0;
   text-align: center;
 }
-.formHeader {
+.form-header {
   font-size: 24px;
   font-weight: 300;
   letter-spacing: -.5px;
   text-align: center;
   margin-bottom:20px;
 }
-.labelForm {
+.form-label {
   display: block;
   margin-bottom:10px;
 }
-.inputForm {
+.form-input {
   border: 1px solid #d1d5da;
   border-radius: 3px;
   margin-bottom: 5px;
   width: 100%;
 }
-.errorForm {
+.form-error {
   color:tomato;
   margin-bottom: 10px;
   font-size: 13px;

@@ -48,8 +48,8 @@ const RegisterPage = (props) => {
   }
 
   return (
-    <Col xs={22} md={12} xl={6} className="formWrapper">
-      <h2 className="formHeader">Create new accuant</h2>
+    <Col xs={22} md={12} xl={6} className="form-wrapper">
+      <h2 className="form-header">Create new accuant</h2>
       <Formik
         initialValues={{ email: '', password: '', username: '' }}
         validationSchema={validSchema}
@@ -57,20 +57,20 @@ const RegisterPage = (props) => {
       >
         {props => (
           <Form onSubmit={props.handleSubmit}>
-            <label htmlFor="username"><span className="labelForm">Name</span>
-              <Field type="text" name="username" className="inputForm"/>
+            <label htmlFor="username"><span className="form-label">Name</span>
+              <Field type="text" name="username" className="form-input"/>
             </label>
-            <ErrorMessage name="username" component="div" className="errorForm" />
+            <ErrorMessage name="username" component="div" className="form-error" />
 
-            <label htmlFor="email"><span className="labelForm">Email</span>
-              <Field type="email" name="email" className="inputForm"/>
+            <label htmlFor="email"><span className="form-label">Email</span>
+              <Field type="email" name="email" className="form-input"/>
             </label>
-            <ErrorMessage name="email" component="div" className="errorForm" />
+            <ErrorMessage name="email" component="div" className="form-error" />
 
-            <label htmlFor="password"><span className="labelForm">Password</span>
-              <Field type="password" name="password" className="inputForm" />
+            <label htmlFor="password"><span className="form-label">Password</span>
+              <Field type="password" name="password" className="form-input" />
             </label>
-            <ErrorMessage name="password" component="div" className="errorForm" />
+            <ErrorMessage name="password" component="div" className="form-error" />
 
             {props.isSubmitting ? (
               <Spin />

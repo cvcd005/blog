@@ -43,8 +43,8 @@ const LoginPage = (props) =>  {
   }
 
   return (
-    <Col xs={22} md={12} xl={6} className="formWrapper">
-      <h2 className="formHeader">Sing in to Blog</h2>
+    <Col xs={22} md={12} xl={6} className="form-wrapper">
+      <h2 className="form-header">Sing in to Blog</h2>
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validSchema}
@@ -52,15 +52,15 @@ const LoginPage = (props) =>  {
       >
         {props => (
           <Form onSubmit={props.handleSubmit}>
-            <label htmlFor="email"><span className="labelForm">Email</span>
-              <Field type="email" name="email" className="inputForm" />
+            <label htmlFor="email"><span className="form-label">Email</span>
+              <Field type="email" name="email" className="form-input" />
             </label>
-            <ErrorMessage name="email" component="div" className="errorForm"/>
+            <ErrorMessage name="email" component="div" className="form-error"/>
 
-            <label htmlFor="password"><span className="labelForm">Password</span>
-              <Field type="password" name="password" className="inputForm" />
+            <label htmlFor="password"><span className="form-label">Password</span>
+              <Field type="password" name="password" className="form-input" />
             </label>
-            <ErrorMessage name="password" component="div" className="errorForm"/>
+            <ErrorMessage name="password" component="div" className="form-error"/>
 
             {props.isSubmitting ? (
                 <Spin />
