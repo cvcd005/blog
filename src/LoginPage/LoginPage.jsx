@@ -6,9 +6,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Spin, Col } from 'antd';
 
-import { signIn, createLocalStorage } from '../Api/Api';
 import { actionCreatorsSignIn } from '../Store/actions';
-
 
 const validSchema = Yup.object({
   password: Yup.string()
@@ -19,24 +17,21 @@ const validSchema = Yup.object({
     .required("You must enter email"),
 });
 
-const submitForm = ( changeStateToLogIn ) => async (values, { setSubmitting, resetForm, setFieldError }) => {
-  try {
-    const response = await signIn({user: values});
-    if (response.status === 200) {
-      resetForm();
-      setSubmitting(false);
-      const { user } = response.data;
-      changeStateToLogIn(user);
-      createLocalStorage(user);
-    }
-  } catch (error) {
-    setFieldError('email', 'Check email');
-    setFieldError('password', 'Check password');
-  }
-}
-
 const LoginPage = (props) =>  {
-  const { isLoggedIn, createThunk, actionSignIn, changeStateToLogIn } = props;
+  const { isLoggedIn, thunkSignIn } = props;
+
+  const submitForm = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      await thunkSignIn(values);
+    }
+    catch (error) {
+      setFieldError('email', 'Check email');
+      setFieldError('password', 'Check password');
+    }
+    finally {
+      setSubmitting(false);
+    }
+  }
 
   if (isLoggedIn) {
     return <Redirect to="/blog" />
@@ -48,15 +43,15 @@ const LoginPage = (props) =>  {
       <Formik
         initialValues={{ email: '', password: '' }}
         validationSchema={validSchema}
-        onSubmit={submitForm(createThunk, actionSignIn, changeStateToLogIn)}
+        onSubmit={submitForm}
       >
         {props => (
           <Form onSubmit={props.handleSubmit}>
             <label htmlFor="email"><span className="form-label">Email</span>
               <Field type="email" name="email" className="form-input" />
             </label>
-            <ErrorMessage name="email" component="div" className="form-error"/>
-
+            <ErrorMessage name="email" component="div" className="form-error" />
+  
             <label htmlFor="password"><span className="form-label">Password</span>
               <Field type="password" name="password" className="form-input" />
             </label>

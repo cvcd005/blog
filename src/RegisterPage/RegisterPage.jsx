@@ -6,7 +6,6 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Spin, Col } from 'antd';
 
-import { signUp, createLocalStorage } from '../Api/Api';
 import { actionCreatorsSignIn  } from '../Store/actions';
 
 const validSchema = Yup.object({
@@ -22,26 +21,23 @@ const validSchema = Yup.object({
     .required("You must enter email"),
 });
 
-const submitForm = (changeStateToLogIn) => async (values, { setSubmitting, resetForm, setFieldError }) => {
-  try {
-    const response = await signUp({user: values});
-    if (response.status === 200) {
-      resetForm();
-      setSubmitting(false);
-      const { user } = response.data;
-      changeStateToLogIn(user);
-      createLocalStorage(user);
+const RegisterPage = (props) => {
+  const { isLoggedIn, thunkSignUp } = props;
+
+  const submitForm = async (values, { setSubmitting, setFieldError }) => {
+    try {
+      await thunkSignUp(values);
     }
-  } catch (error) {
-      const { email, password, username } = error.response.data.errors;
+    catch (error) {
+      const { email, password, username } = error;
       setFieldError('username', username);
       setFieldError('email', email);
       setFieldError('password', password);
+    }
+    finally {
+      setSubmitting(false);
+    }
   }
-}
-
-const RegisterPage = (props) => {
-  const { isLoggedIn, createThunk, actionSignIn, changeStateToLogIn } = props;
 
   if (isLoggedIn) {
     return <Redirect to="/blog" />
@@ -53,7 +49,7 @@ const RegisterPage = (props) => {
       <Formik
         initialValues={{ email: '', password: '', username: '' }}
         validationSchema={validSchema}
-        onSubmit={submitForm(createThunk, actionSignIn, changeStateToLogIn)}
+        onSubmit={submitForm}
       >
         {props => (
           <Form onSubmit={props.handleSubmit}>

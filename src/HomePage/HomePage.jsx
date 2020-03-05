@@ -6,8 +6,7 @@ import { actionCreatorsSignOut } from '../Store/actions';
 import { clearLocalStorage } from '../Api/Api';
 
 const HomePage = props => {
-  const { isLoggedIn, changeStateToLogOut, user } = props;
-  console.log('user', user);
+  const { isLoggedIn, changeStateToSignOut, user } = props;
   if (isLoggedIn) {
     return (
       <div className="header">
@@ -17,7 +16,7 @@ const HomePage = props => {
           <button  
             onClick={()=> {
               clearLocalStorage();
-              changeStateToLogOut();
+              changeStateToSignOut();
             }}
             type="button"
             className="btn-primary"

@@ -1,13 +1,13 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import { changeStateToLogIn, changeStateToLogOut } from './actions';
+import { changeStateToSignIn, changeStateToSignOut } from './actions';
 
 const isLoggedIn = handleActions(
   {
-    [changeStateToLogIn]: () => {
+    [changeStateToSignIn]: () => {
       return true;
     },
-    [changeStateToLogOut]: () => {
+    [changeStateToSignOut]: () => {
       return false;
     },
   },
@@ -16,36 +16,12 @@ const isLoggedIn = handleActions(
 
 const user = handleActions(
   {
-    [changeStateToLogIn]: (state, { payload }) => {
+    [changeStateToSignIn]: (state, { payload }) => {
       return payload;
     },
   },
   {}
 );
-/* const isLoggedIn = (state = false, action) => {
-  switch (action.type) {
-    case 'LOGIN': {
-      return true;
-    }
-    case 'LOGOUT': {
-      return false;
-    }
-    default: {
-      return state;
-    }
-  }
-}; */
-
-/* const user = (state = {}, action) => {
-  switch (action.type) {
-    case 'LOGIN': {
-      return { ...action.payload.user };
-    }
-    default: {
-      return state;
-    }
-  }
-}; */
 
 export default combineReducers({
   isLoggedIn,
