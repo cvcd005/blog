@@ -22,14 +22,14 @@ const validSchema = Yup.object({
     .required("You must enter email"),
 });
 
-const submitForm = (createThunk, actionSignIn) => async (values, { setSubmitting, resetForm, setFieldError }) => {
+const submitForm = (changeStateToLogIn) => async (values, { setSubmitting, resetForm, setFieldError }) => {
   try {
     const response = await signUp({user: values});
     if (response.status === 200) {
       resetForm();
       setSubmitting(false);
       const { user } = response.data;
-      createThunk(user, actionSignIn);
+      changeStateToLogIn(user);
       createLocalStorage(user);
     }
   } catch (error) {
@@ -41,7 +41,7 @@ const submitForm = (createThunk, actionSignIn) => async (values, { setSubmitting
 }
 
 const RegisterPage = (props) => {
-  const { isLoggedIn, createThunk, actionSignIn } = props;
+  const { isLoggedIn, createThunk, actionSignIn, changeStateToLogIn } = props;
 
   if (isLoggedIn) {
     return <Redirect to="/blog" />
@@ -53,7 +53,7 @@ const RegisterPage = (props) => {
       <Formik
         initialValues={{ email: '', password: '', username: '' }}
         validationSchema={validSchema}
-        onSubmit={submitForm(createThunk, actionSignIn)}
+        onSubmit={submitForm(createThunk, actionSignIn, changeStateToLogIn)}
       >
         {props => (
           <Form onSubmit={props.handleSubmit}>

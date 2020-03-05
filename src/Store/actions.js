@@ -1,26 +1,12 @@
-export const actionSignOut = () => ({
-  type: 'LOGOUT',
-});
+import { createAction } from 'redux-actions';
 
-export const actionSignIn = user => ({
-  type: 'LOGIN',
-  payload: { user },
-});
-
-export const createThunk = (data, fn) => dispatch => {
-  return dispatch(fn(data));
-};
-
-export const createThunkSignIn = data => dispatch => {
-  return dispatch(actionSignIn(data));
-};
+export const changeStateToLogIn = createAction('SIGN_IN');
+export const changeStateToLogOut = createAction('SIGN_OUT');
 
 export const actionCreatorsSignIn = {
-  actionSignIn,
-  createThunk,
-  createThunkSignIn,
+  changeStateToLogIn,
 };
 
 export const actionCreatorsSignOut = {
-  actionSignOut,
+  changeStateToLogOut,
 };
