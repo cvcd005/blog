@@ -17,7 +17,7 @@ export const signIn = async user => {
   return axiosInstance.post(`${API_URLS.LOGIN_USER}`, user);
 };
 
-export const createLocalStorage = usr => {
+export const addUserToLocalStorage = usr => {
   localStorage.setItem('user', JSON.stringify(usr));
 };
 

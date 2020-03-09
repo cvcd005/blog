@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -18,7 +17,7 @@ const validSchema = Yup.object({
 });
 
 const LoginPage = (props) =>  {
-  const { isLoggedIn, thunkSignIn } = props;
+  const { thunkSignIn } = props;
 
   const submitForm = async (values, { setSubmitting, setFieldError }) => {
     try {
@@ -31,10 +30,6 @@ const LoginPage = (props) =>  {
     finally {
       setSubmitting(false);
     }
-  }
-
-  if (isLoggedIn) {
-    return <Redirect to="/blog" />
   }
 
   return (

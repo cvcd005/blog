@@ -1,5 +1,5 @@
 import { createAction } from 'redux-actions';
-import { signIn, signUp, createLocalStorage } from '../Api/Api';
+import { signIn, signUp, addUserToLocalStorage } from '../Api/Api';
 
 export const changeStateToSignIn = createAction('SIGN_IN');
 export const changeStateToSignOut = createAction('SIGN_OUT');
@@ -9,11 +9,10 @@ export const thunkSignIn = values => async dispatch => {
     const response = await signIn({ user: values });
     const { user } = response.data;
     dispatch(changeStateToSignIn(user));
-    createLocalStorage(user);
+    addUserToLocalStorage(user);
   } catch (error) {
     const newError = error.response.data.errors;
     throw newError; // пробрасываем ошибку дальше для UI
-    // throw { email: 'Check email', password: 'Check password' }; // пробрасываем ошибку дальше для UI
   }
 };
 
@@ -22,7 +21,7 @@ export const thunkSignUp = values => async dispatch => {
     const response = await signUp({ user: values });
     const { user } = response.data;
     dispatch(changeStateToSignIn(user));
-    createLocalStorage(user);
+    addUserToLocalStorage(user);
   } catch (error) {
     const newError = error.response.data.errors;
     throw newError; // пробрасываем ошибку дальше для UI

@@ -1,13 +1,11 @@
 import React from 'react';
-import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import { actionCreatorsSignOut } from '../Store/actions';
 import { clearLocalStorage } from '../Api/Api';
 
 const HomePage = props => {
-  const { isLoggedIn, changeStateToSignOut, user } = props;
-  if (isLoggedIn) {
+  const { changeStateToSignOut, user } = props;
     return (
       <div className="header">
         This is Homepage
@@ -26,15 +24,10 @@ const HomePage = props => {
         </div>
       </div>
     );
-  } 
-  return (
-   <Redirect to="/blog/login" />
-  )
-}
+};
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn,
     user: state.user,
   }
 };
