@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsSignIn } from '../Store/actions';
 
@@ -19,6 +20,10 @@ class Loader extends React.Component {
   render() {
     return <div>{this.props.children}</div>
   }
+};
+
+Loader.propTypes = {
+  changeStateToSignIn: PropTypes.func.isRequired,
 };
 
 export default connect(()=>({}), actionCreatorsSignIn)(Loader);

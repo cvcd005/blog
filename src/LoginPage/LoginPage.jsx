@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { Spin, Col } from 'antd';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsSignIn } from '../Store/actions';
 
@@ -74,6 +75,10 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
   }
+};
+
+LoginPage.propTypes = {
+  thunkSignIn: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsSignIn)(LoginPage);

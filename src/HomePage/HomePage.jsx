@@ -1,5 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsSignOut } from '../Store/actions';
 import { clearLocalStorage } from '../Api/Api';
@@ -30,6 +31,11 @@ const mapStateToProps = (state) => {
   return {
     user: state.user,
   }
+};
+
+HomePage.propTypes = {
+  user: PropTypes.object.isRequired,
+  changeStateToSignOut: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsSignOut)(HomePage);
