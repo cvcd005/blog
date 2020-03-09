@@ -5,24 +5,29 @@ import PropTypes from 'prop-types';
 import { actionCreatorsSignOut } from '../Store/actions';
 import { clearLocalStorage } from '../Api/Api';
 
+import ListArticles from '../Articles/ListArticles';
+
 const HomePage = props => {
   const { changeStateToSignOut, user } = props;
     return (
-      <div className="header">
-        This is Homepage
-        <div className="header_btn">
-          <span>{user.username}</span>
-          <button  
-            onClick={()=> {
-              clearLocalStorage();
-              changeStateToSignOut();
-            }}
-            type="button"
-            className="btn-primary"
-          >
-            Exit
-          </button>
+      <div>
+        <div className="header">
+          This is Homepage
+          <div className="header_btn">
+            <span>{user.username}</span>
+            <button  
+              onClick={()=> {
+                clearLocalStorage();
+                changeStateToSignOut();
+              }}
+              type="button"
+              className="btn-primary"
+            >
+              Exit
+            </button>
+          </div>
         </div>
+        <ListArticles />
       </div>
     );
 };
