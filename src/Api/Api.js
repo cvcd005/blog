@@ -7,6 +7,7 @@ const axiosInstance = axios.create({
 const API_URLS = {
   LOGIN_USER: 'users/login',
   REGISTER_USER: 'users',
+  ARTICLES_LIST: 'articles',
 };
 
 export const signUp = async user => {
@@ -23,4 +24,8 @@ export const addUserToLocalStorage = usr => {
 
 export const clearLocalStorage = () => {
   localStorage.clear();
+};
+
+export const getArticlesList = (offset = 0) => {
+  return axiosInstance.get(`${API_URLS.ARTICLES_LIST}`, { params: { limit: 10, offset } });
 };

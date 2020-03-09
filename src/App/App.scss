@@ -83,3 +83,44 @@ body{
   padding-bottom:20px;
   font-size: 12px;
 }
+.article-lite {
+  width:350px;
+  height: 200px;
+  margin-bottom: 20px;
+  border: 1px solid lightgrey;
+}
+.article-lite_header {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: baseline;
+  background: lightgrey;
+  padding: 0 10px 0 10px;
+  height:20%;
+}
+.article-lite_body {
+  display:flex;
+  flex-direction:column;
+  justify-content: space-around;
+  height:80%;
+  padding: 0 10px 0 10px;
+}
+.article-lite_title {
+  height:60%;
+}
+.article-lite_date {
+  height:10%;
+  font-size: 12px;
+  align-self: flex-end;
+}
+.article-lite_tags {
+  height:30%;
+  border-top: 1px solid lightgrey;
+}
+.articles-list {
+  padding-top:50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}

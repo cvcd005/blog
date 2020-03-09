@@ -1,6 +1,6 @@
 import { combineReducers } from 'redux';
 import { handleActions } from 'redux-actions';
-import { changeStateToSignIn, changeStateToSignOut } from './actions';
+import { changeStateToSignIn, changeStateToSignOut, addArticlesList } from './actions';
 
 const isLoggedIn = handleActions(
   {
@@ -23,7 +23,17 @@ const user = handleActions(
   {}
 );
 
+const articlesList = handleActions(
+  {
+    [addArticlesList]: (state, { payload }) => {
+      return payload;
+    },
+  },
+  []
+);
+
 export default combineReducers({
   isLoggedIn,
   user,
+  articlesList,
 });

@@ -3,6 +3,7 @@ import { signIn, signUp, addUserToLocalStorage } from '../Api/Api';
 
 export const changeStateToSignIn = createAction('SIGN_IN');
 export const changeStateToSignOut = createAction('SIGN_OUT');
+export const addArticlesList = createAction('ADD_ARTICLES_LIST');
 
 export const thunkSignIn = values => async dispatch => {
   try {
@@ -36,4 +37,8 @@ export const actionCreatorsSignIn = {
 
 export const actionCreatorsSignOut = {
   changeStateToSignOut,
+};
+
+export const actionCreatorsArticlesList = {
+  addArticlesList,
 };
