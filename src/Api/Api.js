@@ -1,13 +1,32 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: 'https://conduit.productionready.io/api/',
-});
-
 const API_URLS = {
   LOGIN_USER: 'users/login',
   REGISTER_USER: 'users',
-  ARTICLES_LIST: 'articles',
+  ARTICLES: 'articles',
+};
+
+const axiosConfig = {
+  baseURL: 'https://conduit.productionready.io/api/',
+};
+
+const axiosInstance = axios.create(axiosConfig);
+
+const memoConfig = () => {
+  /* eslint-disable */
+  if (!axiosConfig.hasOwnProperty('headers')) {
+    try {
+      const user = JSON.parse(localStorage.getItem('user'));
+      if (user) {
+        const { token } = user;
+        axiosConfig.headers = { Authorization: `Token ${token}` };
+      }
+    } catch (err) {
+      /* console.log('memo config can not read localStorage'); */
+    }
+  }
+  return axiosConfig;
+  /* eslint-enable */
 };
 
 export const signUp = async user => {
@@ -26,6 +45,25 @@ export const clearLocalStorage = () => {
   localStorage.clear();
 };
 
-export const getArticlesList = (offset = 0) => {
-  return axiosInstance.get(`${API_URLS.ARTICLES_LIST}`, { params: { limit: 10, offset } });
+export const getArticlesList = async (offset = 0) => {
+  return axiosInstance.get(`${API_URLS.ARTICLES}`, {
+    params: { limit: 10, offset },
+    ...memoConfig(),
+  });
+};
+
+export const favoriteArticle = async slug => {
+  return axiosInstance.post(`${API_URLS.ARTICLES}/${slug}/favorite`, {}, memoConfig());
+};
+
+export const createArticle = async data => {
+  /* let data = {
+        "article": {
+            "title": "123456",
+            "description": "Ever wonder how?",
+            "body": "You have to believe",
+            "tagList": ["reactjs", "angularjs", "dragons"]
+          }
+      } */
+  return axiosInstance.post(`${API_URLS.ARTICLES}`, data, memoConfig());
 };

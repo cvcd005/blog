@@ -2,26 +2,24 @@ import React from 'react';
 import { connect } from 'react-redux';
 import { Pagination } from 'antd';
 
-import { getArticlesList } from '../Api/Api';
 import { actionCreatorsArticlesList } from '../Store/actions';
 
 import LiteArticle from './LiteArticle';
 
 class ListArticles extends React.Component {
-  async componentDidMount() {
-    const response = await getArticlesList();
-    const { addArticlesList } = this.props;
-    addArticlesList(response.data.articles);
+  componentDidMount() {
+    const { thunkAddArticlesList } = this.props;
+    thunkAddArticlesList();
   }
 
-  onChange = async (evt) => {
-    const response = await getArticlesList(evt * 10 - 10);
-    const { addArticlesList } = this.props;
-    addArticlesList(response.data.articles);
+  onChange = evt => {
+    const { thunkAddArticlesList } = this.props;
+    thunkAddArticlesList(evt * 10 - 10);
   }
 
   render () {
     const { articlesList } = this.props;
+    console.log(articlesList)
     return (
     <div>
       <div className="articles-list">
