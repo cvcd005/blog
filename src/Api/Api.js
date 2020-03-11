@@ -24,3 +24,13 @@ export const addUserToLocalStorage = usr => {
 export const clearLocalStorage = () => {
   localStorage.clear();
 };
+
+export const isRoutingAllowed = (isLoggedIn, name) => {
+  if (isLoggedIn && name !== 'Home') {
+    return false;
+  }
+  if (!isLoggedIn && name === 'Home') {
+    return false;
+  }
+  return true;
+};

@@ -11,7 +11,8 @@ const mapStateToProps = state => {
 const ProtectedRoute = ({
   component: Component,
   addresToRedirect,
-  reverse,
+  isRoutingAllowed,
+  name,
   isLoggedIn,
   ...rest
 }) => {
@@ -19,16 +20,10 @@ const ProtectedRoute = ({
     <Route
       {...rest}
       render={props => {
-        if (reverse) {
-          if (isLoggedIn) {
-            return <Redirect to={addresToRedirect} />;
-          }
-          return <Component {...props} />;
-        }
-        if (isLoggedIn) {
-          return <Component {...props} />;
-        }
-        return <Redirect to={addresToRedirect} />;
+        if (isRoutingAllowed(isLoggedIn, name)) {
+          return <Component {...props} />
+        } 
+        return <Redirect to={addresToRedirect} />
       }}
     />
   );
