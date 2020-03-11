@@ -2,7 +2,7 @@ import React from 'react';
 import { formatDistance } from 'date-fns';
 import { LikeOutlined } from '@ant-design/icons';
 
-import { favoriteArticle, createArticle } from '../Api/Api'
+import { favoriteArticle } from '../Api/Api'
 
 const LiteArticle = (props) => {
   const { title, author: { username }, createdAt, tagList, favoritesCount, favorited } = props.article;
