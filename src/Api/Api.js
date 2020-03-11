@@ -25,7 +25,7 @@ export const clearLocalStorage = () => {
   localStorage.clear();
 };
 
-export const isRoutingAllowed = (isLoggedIn, name) => {
+export const isAuthorized = isLoggedIn => name => {
   if (isLoggedIn && name !== 'Home') {
     return false;
   }

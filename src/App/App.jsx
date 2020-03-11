@@ -1,10 +1,9 @@
 import React from 'react';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
+import { connect } from 'react-redux';
 
-import Store from '../Store';
 import ProtectedRoute from './ProtectedRoute'; 
-import { isRoutingAllowed } from '../Api/Api';
+import { isAuthorized } from '../Api/Api';
 
 import Loader from '../Loader';
 import HomePage from '../HomePage';
@@ -14,18 +13,23 @@ import RegisterPage from '../RegisterPage';
 import 'antd/dist/antd.css';
 import './App.scss';
 
-const App = () => {
+const App = (props) => {
+  const { isLoggedIn } = props;
   return (
-    <Provider store={Store}>
-      <BrowserRouter>
-        <Loader>
-          <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={isRoutingAllowed} name={'Home'}/> 
-          <ProtectedRoute path="/blog/login" component={LoginPage} addresToRedirect={'/blog'}  isRoutingAllowed={isRoutingAllowed}/>
-          <ProtectedRoute path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'}  isRoutingAllowed={isRoutingAllowed}/>
-        </Loader>
-      </BrowserRouter>
-    </Provider>
+    <BrowserRouter>
+      <Loader>
+        <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={ isAuthorized(isLoggedIn) } name={'Home'}/> 
+        <ProtectedRoute path="/blog/login" component={LoginPage} addresToRedirect={'/blog'}  isRoutingAllowed={ isAuthorized(isLoggedIn) }/>
+        <ProtectedRoute path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'}  isRoutingAllowed={ isAuthorized(isLoggedIn) }/>
+      </Loader>
+    </BrowserRouter>
   )
 };
 
-export default App;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  }
+};
+
+export default connect(mapStateToProps)(App);
