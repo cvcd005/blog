@@ -25,7 +25,7 @@ class ListArticles extends React.Component {
       <div className="articles-list">
         {articlesList.map(el => <LiteArticle article={el} key={el.slug} />) }
       </div>
-      <Pagination total={500} onChange={this.onChange} className="pagination"/>
+      <Pagination total={500} onChange={this.onChange} defaultCurrent={1} className="pagination"/>
     </div>
     )
   }

@@ -5,8 +5,6 @@ import PropTypes from 'prop-types';
 import { actionCreatorsSignOut } from '../Store/actions';
 import { clearLocalStorage } from '../Api/Api';
 
-import ListArticles from '../Articles/ListArticles';
-
 const HomePage = props => {
   const { changeStateToSignOut, user } = props;
     return (
@@ -27,7 +25,6 @@ const HomePage = props => {
             </button>
           </div>
         </div>
-        <ListArticles />
       </div>
     );
 };
