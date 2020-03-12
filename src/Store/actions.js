@@ -1,11 +1,21 @@
 import { createAction } from 'redux-actions';
-import { signIn, signUp, addUserToLocalStorage, getArticlesList } from '../Api/Api';
+import {
+  signIn,
+  signUp,
+  addUserToLocalStorage,
+  getArticlesList,
+  LikeArticle,
+  UnLikeArticle,
+} from '../Api/Api';
 
 export const changeStateToSignIn = createAction('SIGN_IN');
 export const changeStateToSignOut = createAction('SIGN_OUT');
 export const addArticlesList = createAction('ADD_ARTICLES_LIST');
-export const addArticle = createAction('ADD_ARTICLE');
+
 export const favoriteArticle = createAction('FAVORITE_ARTICLE');
+export const deleteFavoriteArticle = createAction('DELETE_FAVORITE_ARTICLE');
+
+export const addArticle = createAction('ADD_ARTICLE');
 
 export const thunkSignIn = values => async dispatch => {
   try {
@@ -40,14 +50,23 @@ export const thunkAddArticlesList = offset => async dispatch => {
   }
 };
 
-/* export const thunkFavoriteArticle = slug => async dispatch => {
+export const thunkFavoriteArticle = slug => async dispatch => {
   try {
-    const response = await favoriteArticle(slug);
-    dispatch(addArticle(response.data));
+    const response = await LikeArticle(slug);
+    dispatch(favoriteArticle(response.data.article));
   } catch (err) {
-    console.log(err);
+    /* console.log('Error when favorite Article'); */
   }
-}; */
+};
+
+export const thunkDeleteFavoriteActicle = slug => async dispatch => {
+  try {
+    const response = await UnLikeArticle(slug);
+    dispatch(deleteFavoriteArticle(response.data.article));
+  } catch (err) {
+    /* console.log('Error when delete favorite Article'); */
+  }
+};
 
 export const actionCreatorsSignIn = {
   changeStateToSignIn,
@@ -66,4 +85,6 @@ export const actionCreatorsArticlesList = {
 export const actionCreatorsArticle = {
   addArticle,
   favoriteArticle,
+  thunkFavoriteArticle,
+  thunkDeleteFavoriteActicle,
 };

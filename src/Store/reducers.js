@@ -6,6 +6,7 @@ import {
   addArticlesList,
   addArticle,
   favoriteArticle,
+  deleteFavoriteArticle,
 } from './actions';
 
 const isLoggedIn = handleActions(
@@ -33,6 +34,18 @@ const articlesList = handleActions(
   {
     [addArticlesList]: (state, { payload }) => {
       return payload;
+    },
+    [favoriteArticle]: (state, { payload }) => {
+      return state.reduce(
+        (acc, el) => (el.slug === payload.slug ? [...acc, payload] : [...acc, el]),
+        []
+      );
+    },
+    [deleteFavoriteArticle]: (state, { payload }) => {
+      return state.reduce(
+        (acc, el) => (el.slug === payload.slug ? [...acc, payload] : [...acc, el]),
+        []
+      );
     },
   },
   []

@@ -52,8 +52,12 @@ export const getArticlesList = async (offset = 0) => {
   });
 };
 
-export const favoriteArticle = async slug => {
+export const LikeArticle = async slug => {
   return axiosInstance.post(`${API_URLS.ARTICLES}/${slug}/favorite`, {}, memoConfig());
+};
+
+export const UnLikeArticle = async slug => {
+  return axiosInstance.delete(`${API_URLS.ARTICLES}/${slug}/favorite`, memoConfig());
 };
 
 export const createArticle = async data => {

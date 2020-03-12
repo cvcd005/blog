@@ -1,17 +1,23 @@
 import React from 'react';
 import { formatDistance } from 'date-fns';
 import { LikeOutlined } from '@ant-design/icons';
+import { connect } from 'react-redux';
 
-import { favoriteArticle } from '../Api/Api'
+import { actionCreatorsArticle } from '../Store/actions';
 
 const LiteArticle = (props) => {
   const { title, author: { username }, createdAt, tagList, favoritesCount, favorited } = props.article;
   const style = favorited ? 'favorite': '';
-  
+  const { thunkFavoriteArticle, thunkDeleteFavoriteActicle } = props;
+
   const toggleLike = async (evt) => {
     evt.preventDefault();
     const { slug } = props.article;
-    await favoriteArticle(slug);
+    if (favorited) {
+      thunkDeleteFavoriteActicle(slug);
+    } else {
+      thunkFavoriteArticle(slug);
+    }
   }
 
   return (
@@ -32,4 +38,11 @@ const LiteArticle = (props) => {
   )
 };
 
-export default LiteArticle;
+const mapStateToProps = (state) => {
+  return {
+    isLoggedIn: state.isLoggedIn,
+  }
+};
+
+export default connect(mapStateToProps, actionCreatorsArticle)(LiteArticle);
+
