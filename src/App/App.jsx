@@ -3,7 +3,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import ProtectedRoute from './ProtectedRoute'; 
-import { isAuthorized } from '../Api/Api';
+import { canActivate } from '../Api/Api';
 
 import Loader from '../Loader';
 import HomePage from '../HomePage';
@@ -18,9 +18,9 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Loader>
-        <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={ isAuthorized(isLoggedIn) } name={'Home'}/> 
-        <ProtectedRoute path="/blog/login" component={LoginPage} addresToRedirect={'/blog'}  isRoutingAllowed={ isAuthorized(isLoggedIn) }/>
-        <ProtectedRoute path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'}  isRoutingAllowed={ isAuthorized(isLoggedIn) }/>
+        <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={ canActivate(isLoggedIn) } name={'Home'}/> 
+        <ProtectedRoute path="/blog/login" component={LoginPage} addresToRedirect={'/blog'}  isRoutingAllowed={ canActivate(isLoggedIn) }/>
+        <ProtectedRoute path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'}  isRoutingAllowed={ canActivate(isLoggedIn) }/>
       </Loader>
     </BrowserRouter>
   )

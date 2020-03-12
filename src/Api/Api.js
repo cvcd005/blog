@@ -25,11 +25,18 @@ export const clearLocalStorage = () => {
   localStorage.clear();
 };
 
-export const isAuthorized = isLoggedIn => name => {
-  if (isLoggedIn && name !== 'Home') {
+const isAuthorized = isLoggedIn => {
+  if (isLoggedIn) {
+    return true;
+  }
+  return false;
+};
+
+export const canActivate = isLoggedIn => name => {
+  if (isAuthorized(isLoggedIn) && name !== 'Home') {
     return false;
   }
-  if (!isLoggedIn && name === 'Home') {
+  if (!isAuthorized(isLoggedIn) && name === 'Home') {
     return false;
   }
   return true;
