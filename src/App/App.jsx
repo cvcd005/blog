@@ -18,7 +18,7 @@ const App = (props) => {
   return (
     <BrowserRouter>
       <Loader>
-        <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={ canActivate(isLoggedIn) } name={'Home'}/> 
+        <ProtectedRoute path="/blog" component={HomePage} exact addresToRedirect={'/blog/login'} isRoutingAllowed={ canActivate(isLoggedIn) } show/> 
         <ProtectedRoute path="/blog/login" component={LoginPage} addresToRedirect={'/blog'}  isRoutingAllowed={ canActivate(isLoggedIn) }/>
         <ProtectedRoute path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'}  isRoutingAllowed={ canActivate(isLoggedIn) }/>
       </Loader>

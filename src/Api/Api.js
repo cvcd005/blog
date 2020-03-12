@@ -32,11 +32,11 @@ const isAuthorized = isLoggedIn => {
   return false;
 };
 
-export const canActivate = isLoggedIn => name => {
-  if (isAuthorized(isLoggedIn) && name !== 'Home') {
+export const canActivate = isLoggedIn => show => {
+  if (isAuthorized(isLoggedIn) && !show) {
     return false;
   }
-  if (!isAuthorized(isLoggedIn) && name === 'Home') {
+  if (!isAuthorized(isLoggedIn) && show) {
     return false;
   }
   return true;

@@ -5,14 +5,14 @@ const ProtectedRoute = ({
   component: Component,
   addresToRedirect,
   isRoutingAllowed,
-  name,
+  show,
   ...rest
 }) => {
   return (
     <Route
       {...rest}
       render={props => {
-        if (isRoutingAllowed(name)) {
+        if (isRoutingAllowed(show)) {
           return <Component {...props} />
         } 
         return <Redirect to={addresToRedirect} />
