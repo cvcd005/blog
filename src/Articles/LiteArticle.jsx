@@ -10,8 +10,11 @@ const LiteArticle = (props) => {
   
   const toggleLike = async (evt) => {
     evt.stopPropagation();/* останавливаем всплытие событий */
-    const { thunkFavoriteArticle, thunkDeleteFavoriteActicle } = props; /* фанки для лайка и анлайка*/ 
+    const { thunkFavoriteArticle, thunkDeleteFavoriteActicle, isLoggedIn } = props; /* фанки для лайка и анлайка*/ 
     const { slug } = props.article; /* получаем имя/идентификатор статьи */
+    if (!isLoggedIn) { // если не залогинены ничего не делаем
+      return;
+    }
     if (favorited) { /* если мы лайкали */ 
       thunkDeleteFavoriteActicle(slug);
     } else {
