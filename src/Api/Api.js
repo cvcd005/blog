@@ -12,21 +12,17 @@ const axiosConfig = {
 
 const axiosInstance = axios.create(axiosConfig);
 
-const memoConfig = () => {
-  /* eslint-disable */
-  if (!axiosConfig.hasOwnProperty('headers')) {
-    try {
-      const user = JSON.parse(localStorage.getItem('user'));
-      if (user) {
-        const { token } = user;
-        axiosConfig.headers = { Authorization: `Token ${token}` };
-      }
-    } catch (err) {
-      /* console.log('memo config can not read localStorage'); */
+const tokenConfig = () => {
+  try {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const { token } = user;
+      return { headers: { Authorization: `Token ${token}` } };
     }
+  } catch (err) {
+    /* console.log('memo config can not read localStorage'); */
   }
-  return axiosConfig;
-  /* eslint-enable */
+  return {};
 };
 
 export const signUp = async user => {
@@ -48,16 +44,16 @@ export const clearLocalStorage = () => {
 export const getArticlesList = async (offset = 0) => {
   return axiosInstance.get(`${API_URLS.ARTICLES}`, {
     params: { limit: 10, offset },
-    ...memoConfig(),
+    ...tokenConfig(),
   });
 };
 
 export const LikeArticle = async slug => {
-  return axiosInstance.post(`${API_URLS.ARTICLES}/${slug}/favorite`, {}, memoConfig());
+  return axiosInstance.post(`${API_URLS.ARTICLES}/${slug}/favorite`, {}, tokenConfig());
 };
 
 export const UnLikeArticle = async slug => {
-  return axiosInstance.delete(`${API_URLS.ARTICLES}/${slug}/favorite`, memoConfig());
+  return axiosInstance.delete(`${API_URLS.ARTICLES}/${slug}/favorite`, tokenConfig());
 };
 
 export const createArticle = async data => {
@@ -69,5 +65,5 @@ export const createArticle = async data => {
             "tagList": ["reactjs", "angularjs", "dragons"]
           }
       } */
-  return axiosInstance.post(`${API_URLS.ARTICLES}`, data, memoConfig());
+  return axiosInstance.post(`${API_URLS.ARTICLES}`, data, tokenConfig());
 };
