@@ -7,7 +7,8 @@ import { withRouter } from 'react-router-dom';
 import { actionCreatorsArticle } from '../Store/actions';
 
 const LiteArticle = (props) => {
-  
+ 
+
   const toggleLike = async (evt) => {
     evt.stopPropagation();/* останавливаем всплытие событий */
     const { thunkFavoriteArticle, thunkDeleteFavoriteActicle, isLoggedIn } = props; /* фанки для лайка и анлайка*/ 
@@ -31,7 +32,7 @@ const LiteArticle = (props) => {
 
   const { title, author: { username }, createdAt, tagList, favoritesCount, favorited } = props.article;
   const style = favorited ? 'favorite': '';
-
+  
   return (
     <article className="article-lite" onClick={openFullArticle}>
       <header className="article-lite_header">

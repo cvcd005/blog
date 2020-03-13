@@ -88,35 +88,37 @@ body{
   height: 200px;
   margin-bottom: 20px;
   border: 1px solid lightgrey;
+
+  &_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    background: lightgrey;
+    padding: 0 10px 0 10px;
+    height:20%;
+  }
+  &_body {
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    height:80%;
+    padding: 0 10px 0 10px;
+  }
+  &_title {
+    height:60%;
+  }
+  &_date {
+    height:10%;
+    font-size: 12px;
+    align-self: flex-end;
+  }
+  &_tags {
+    height:30%;
+    border-top: 1px solid lightgrey;
+  }
 }
-.article-lite_header {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  align-items: baseline;
-  background: lightgrey;
-  padding: 0 10px 0 10px;
-  height:20%;
-}
-.article-lite_body {
-  display:flex;
-  flex-direction:column;
-  justify-content: space-around;
-  height:80%;
-  padding: 0 10px 0 10px;
-}
-.article-lite_title {
-  height:60%;
-}
-.article-lite_date {
-  height:10%;
-  font-size: 12px;
-  align-self: flex-end;
-}
-.article-lite_tags {
-  height:30%;
-  border-top: 1px solid lightgrey;
-}
+
 .articles-list {
   padding-top:50px;
   display: flex;
@@ -133,4 +135,69 @@ body{
 .link-primary {
   color:white;
   cursor: pointer;
+}
+
+.article-full {
+  margin:50px auto;
+  width: 1024px;
+  min-width: 768px;
+  max-width:1440px;
+  border: 1px solid lightgrey;
+  position:relative;
+  
+  &_header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: baseline;
+    background: lightgrey;
+    padding: 0 10px 0 10px;
+    height:20%;
+  }
+
+  &_body {
+    display:flex;
+    flex-direction:column;
+    justify-content: space-around;
+    height:80%;
+    padding: 0 10px 0 10px;  
+  }
+
+  &_title:before {
+    content:"title";
+    font-size: 10px;
+    color:lightgrey;
+    margin-right: 20px;
+  }
+
+  &_text:before {
+    content:"text";
+    font-size: 10px;
+    color:lightgrey;
+    margin-right: 20px;
+  } 
+
+  &_description:before {
+    content:"description";
+    font-size: 10px;
+    color:lightgrey;
+    margin-right: 20px;
+  }
+
+  &_tags:before {
+    content:"tags";
+    font-size: 10px;
+    color:lightgrey;
+    margin-right: 20px;
+  }
+
+  &_date {
+    align-self: flex-end;
+  }
+}
+.btn-close {
+  position: absolute;
+  right: -50px;
+  top: -20px;
+  background: #24292e;
 }

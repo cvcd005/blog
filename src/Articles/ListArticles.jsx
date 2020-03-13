@@ -8,13 +8,13 @@ import LiteArticle from './LiteArticle';
 
 class ListArticles extends React.Component {
   componentDidMount() {
-    const { thunkAddArticlesList } = this.props;
-    thunkAddArticlesList();
+    const { thunkGetArticlesList } = this.props;
+    thunkGetArticlesList();
   }
 
   onChange = evt => {
-    const { thunkAddArticlesList } = this.props;
-    thunkAddArticlesList(evt * 10 - 10);
+    const { thunkGetArticlesList } = this.props;
+    thunkGetArticlesList(evt * 10 - 10);
   }
 
   render () {

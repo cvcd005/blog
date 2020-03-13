@@ -56,6 +56,10 @@ export const UnLikeArticle = async slug => {
   return axiosInstance.delete(`${API_URLS.ARTICLES}/${slug}/favorite`, tokenConfig());
 };
 
+export const getArticle = async slug => {
+  return axiosInstance.get(`${API_URLS.ARTICLES}/${slug}`, { ...tokenConfig() });
+};
+
 export const createArticle = async data => {
   /* let data = {
         "article": {

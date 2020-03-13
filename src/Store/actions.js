@@ -6,6 +6,7 @@ import {
   getArticlesList,
   LikeArticle,
   UnLikeArticle,
+  getArticle,
 } from '../Api/Api';
 
 export const changeStateToSignIn = createAction('SIGN_IN');
@@ -41,7 +42,7 @@ export const thunkSignUp = values => async dispatch => {
   }
 };
 
-export const thunkAddArticlesList = offset => async dispatch => {
+export const thunkGetArticlesList = offset => async dispatch => {
   try {
     const response = await getArticlesList(offset);
     dispatch(addArticlesList(response.data.articles));
@@ -68,6 +69,15 @@ export const thunkDeleteFavoriteActicle = slug => async dispatch => {
   }
 };
 
+export const thunkGetArticle = slug => async dispatch => {
+  try {
+    const response = await getArticle(slug);
+    dispatch(addArticle(response.data.article));
+  } catch (err) {
+    /* console.log('Error when get Article'); */
+  }
+};
+
 export const actionCreatorsSignIn = {
   changeStateToSignIn,
   thunkSignIn,
@@ -79,11 +89,12 @@ export const actionCreatorsSignOut = {
 };
 
 export const actionCreatorsArticlesList = {
-  thunkAddArticlesList,
+  thunkGetArticlesList,
 };
 
 export const actionCreatorsArticle = {
   addArticle,
+  thunkGetArticle,
   favoriteArticle,
   thunkFavoriteArticle,
   thunkDeleteFavoriteActicle,

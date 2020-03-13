@@ -11,6 +11,7 @@ import { HomePage, HomePageNotAuth } from '../HomePage';
 import LoginPage from '../LoginPage';
 import RegisterPage from '../RegisterPage';
 import ListArticles from '../Articles/ListArticles';
+import FullArticle from '../Articles/FullArticle';
 
 import 'antd/dist/antd.css';
 import './App.scss';
@@ -25,13 +26,7 @@ const App = (props) => {
           <ProtectedRouteRederict path="/blog/signin" component={LoginPage} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn, true)} />
           <ProtectedRouteRederict path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn, true)} />
           <Route path="/blog" exact component={ListArticles} />
-          <Route 
-            path="/blog/articles/:slug"
-            render={({match}) => {
-              console.log(match);
-              return <div>123</div>
-            }}
-          />
+          <Route path="/blog/articles/:slug" render={({match}) => (<FullArticle slug={match.params.slug}/>)} />
         </Loader>
       </BrowserRouter>
     </Provider>

@@ -57,7 +57,10 @@ const currentArticle = handleActions(
       return payload;
     },
     [favoriteArticle]: (state, { payload }) => {
-      return payload;
+      return { ...state, favorited: payload.favorited, favoritesCount: payload.favoritesCount };
+    },
+    [deleteFavoriteArticle]: (state, { payload }) => {
+      return { ...state, favorited: payload.favorited, favoritesCount: payload.favoritesCount };
     },
   },
   {}
