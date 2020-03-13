@@ -27,7 +27,7 @@ class FullArticle extends React.Component {
   }
 
   toggleLike = async (evt) => {
-    evt.stopPropagation();/* останавливаем всплытие событий */
+    evt.stopPropagation(); /* останавливаем всплытие событий */
     const { thunkFavoriteArticle, thunkDeleteFavoriteActicle, isLoggedIn } = this.props; /* фанки для лайка и анлайка*/ 
     const { slug, favorited } = this.props.currentArticle; /* получаем имя/идентификатор статьи */
     if (!isLoggedIn) { // если не залогинены ничего не делаем

@@ -61,13 +61,5 @@ export const getArticle = async slug => {
 };
 
 export const createArticle = async data => {
-  /* let data = {
-        "article": {
-            "title": "123456",
-            "description": "Ever wonder how?",
-            "body": "You have to believe",
-            "tagList": ["reactjs", "angularjs", "dragons"]
-          }
-      } */
   return axiosInstance.post(`${API_URLS.ARTICLES}`, data, tokenConfig());
 };
