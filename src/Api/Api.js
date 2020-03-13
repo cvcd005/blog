@@ -63,3 +63,7 @@ export const getArticle = async slug => {
 export const createArticle = async data => {
   return axiosInstance.post(`${API_URLS.ARTICLES}`, data, tokenConfig());
 };
+
+export const updateArticle = async (slug, data) => {
+  return axiosInstance.put(`${API_URLS.ARTICLES}/${slug}`, data, tokenConfig());
+};

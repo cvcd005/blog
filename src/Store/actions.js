@@ -8,6 +8,7 @@ import {
   UnLikeArticle,
   getArticle,
   createArticle,
+  updateArticle,
 } from '../Api/Api';
 
 export const changeStateToSignIn = createAction('SIGN_IN');
@@ -89,6 +90,18 @@ export const thunkCreateArticle = values => async dispatch => {
   }
 };
 
+export const thunkUpdateArticle = (slug, values) => async dispatch => {
+  try {
+    const { tagList = [] } = values;
+    const response = await updateArticle(slug, {
+      article: { ...values, tagList: tagList.split(' ') },
+    });
+    dispatch(addArticle(response.data.article));
+  } catch (err) {
+    /* console.log('Error when update Article') */
+  }
+};
+
 export const actionCreatorsSignIn = {
   changeStateToSignIn,
   thunkSignIn,
@@ -110,4 +123,5 @@ export const actionCreatorsArticle = {
   thunkFavoriteArticle,
   thunkDeleteFavoriteActicle,
   thunkCreateArticle,
+  thunkUpdateArticle,
 };
