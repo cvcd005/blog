@@ -28,4 +28,10 @@ const mapStateToProps = (state) => {
   }
 };
 
+export const AddArticleButton = () => {
+  return (
+    <Link  className="btn-addArticle" to="/blog/add">Add article</Link>
+  );
+};
+
 export default connect(mapStateToProps)(EditArticleButton);
