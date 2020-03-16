@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -33,7 +32,7 @@ const EditArticle = (props) => {
       await thunkUpdateArticle(slug, values);
     }
     catch (error) {
-  
+      console.log(error);
     }
     finally {
       setSubmitting(false);
@@ -91,6 +90,12 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
     currentArticle: state.currentArticle,
   }
+};
+
+EditArticle.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  currentArticle: PropTypes.object.isRequired,
+  thunkUpdateArticle : PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsArticle)(withRouter(EditArticle));

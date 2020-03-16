@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
@@ -18,8 +17,6 @@ const validSchema = Yup.object({
   .required("You must enter description"),
 });
 
-
-
 const AddArticle = (props) => {
   const { thunkCreateArticle } = props;
   
@@ -29,12 +26,12 @@ const AddArticle = (props) => {
     history.push('/blog');
   }
 
-  const submitForm = async (values, { setSubmitting, setFieldError, resetForm }) => {
+  const submitForm = async (values, { setSubmitting, resetForm }) => {
     try {
       await thunkCreateArticle(values);
     }
     catch (error) {
-  
+      console.log(error);
     }
     finally {
       setSubmitting(false);
@@ -91,6 +88,11 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
   }
+};
+
+AddArticle.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  thunkCreateArticle:PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsArticle)(withRouter(AddArticle));

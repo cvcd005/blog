@@ -4,14 +4,11 @@ import { LikeOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { Button } from 'antd';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsArticle } from '../Store/actions';
 
 class FullArticle extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-
   componentDidMount() {
     if (this.props.currentArticle.title) { /* Если данные пришли от LiteArticle не запрашиваем по сети */
       return ;
@@ -75,6 +72,15 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
     currentArticle: state.currentArticle,
   }
+};
+
+FullArticle.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  currentArticle: PropTypes.object.isRequired,
+  thunkGetArticle: PropTypes.func.isRequired,
+  slug: PropTypes.string.isRequired,
+  thunkFavoriteArticle: PropTypes.func.isRequired,
+  thunkDeleteFavoriteActicle: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsArticle)(withRouter(FullArticle));

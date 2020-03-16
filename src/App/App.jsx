@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 import { ProtectedRoute, canActivate, ProtectedRouteRederict }from '../ProtectedRoute'; 
 import Loader from '../Loader';
@@ -42,5 +43,8 @@ const mapStateToProps = (state) => {
   }
 };
 
+App.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+};
 
 export default connect(mapStateToProps)(App);

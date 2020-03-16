@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Pagination } from 'antd';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsArticlesList } from '../Store/actions';
 
@@ -19,7 +20,6 @@ class ListArticles extends React.Component {
 
   render () {
     const { articlesList } = this.props;
-    console.log(articlesList)
     return (
     <div>
       <div className="articles-list">
@@ -36,6 +36,12 @@ const mapStateToProps = (state) => {
     isLoggedIn: state.isLoggedIn,
     articlesList: state.articlesList,
   }
+};
+
+ListArticles.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  articlesList: PropTypes.array.isRequired, 
+  thunkGetArticlesList: PropTypes.func.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsArticlesList)(ListArticles);

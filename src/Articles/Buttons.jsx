@@ -1,7 +1,7 @@
 import React from 'react';
-import { withRouter } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import PropTypes from 'prop-types';
 
 const EditArticleButton = (props) => {
   if (!props.currentArticle.title) { /* Если данные пока не получили ничего не показываем */
@@ -11,7 +11,6 @@ const EditArticleButton = (props) => {
   const { username } = props.user;
   const { currentArticle } = props;
 
- 
   if (username === currentArticle.author.username) {
     return (
       <Link className="btn-addArticle" to={`${slug}/edit`}>Edit</Link>
@@ -22,16 +21,20 @@ const EditArticleButton = (props) => {
 
 const mapStateToProps = (state) => {
   return {
-    isLoggedIn: state.isLoggedIn,
     currentArticle: state.currentArticle,
     user: state.user,
   }
 };
+
+EditArticleButton.propTypes = {
+  currentArticle:PropTypes.object.isRequired,
+  user: PropTypes.object.isRequired,
+};
+
+export default connect(mapStateToProps)(EditArticleButton);
 
 export const AddArticleButton = () => {
   return (
     <Link  className="btn-addArticle" to="/blog/add">Add article</Link>
   );
 };
-
-export default connect(mapStateToProps)(EditArticleButton);

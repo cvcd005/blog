@@ -3,12 +3,11 @@ import { formatDistance } from 'date-fns';
 import { LikeOutlined } from '@ant-design/icons';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
 import { actionCreatorsArticle } from '../Store/actions';
 
 const LiteArticle = (props) => {
- 
-
   const toggleLike = async (evt) => {
     evt.stopPropagation();/* останавливаем всплытие событий */
     const { thunkFavoriteArticle, thunkDeleteFavoriteActicle, isLoggedIn } = props; /* фанки для лайка и анлайка*/ 
@@ -55,6 +54,14 @@ const mapStateToProps = (state) => {
   return {
     isLoggedIn: state.isLoggedIn,
   }
+};
+
+LiteArticle.propTypes = {
+  isLoggedIn: PropTypes.bool.isRequired,
+  thunkFavoriteArticle:PropTypes.func.isRequired, 
+  thunkDeleteFavoriteActicle:PropTypes.func.isRequired,
+  addArticle: PropTypes.func.isRequired,
+  article: PropTypes.object.isRequired,
 };
 
 export default connect(mapStateToProps, actionCreatorsArticle)(withRouter(LiteArticle));
