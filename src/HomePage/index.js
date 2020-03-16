@@ -1,3 +1,4 @@
 import HomePage from './HomePage';
+import HomePageNotAuth from './HomePageNotAuth';
 
-export default HomePage;
+export { HomePage, HomePageNotAuth };

@@ -1,18 +1,18 @@
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const ProtectedRoute = ({
+const ProtectedRouteRederict = ({
   component: Component,
   addresToRedirect,
   isRoutingAllowed,
-  show,
   ...rest
 }) => {
   return (
     <Route
       {...rest}
       render={props => {
-        if (isRoutingAllowed(show)) {
+        if (isRoutingAllowed) {
           return <Component {...props} />
         } 
         return <Redirect to={addresToRedirect} />
@@ -21,4 +21,10 @@ const ProtectedRoute = ({
   );
 };
 
-export default ProtectedRoute;
+ProtectedRouteRederict.propTypes = {
+  component: PropTypes.elementType.isRequired,
+  isRoutingAllowed: PropTypes.bool.isRequired,
+  addresToRedirect: PropTypes.string.isRequired,
+};
+
+export default ProtectedRouteRederict;

@@ -75,7 +75,7 @@ const RegisterPage = (props) => {
         )}
       </Formik>
       <div className="or">OR</div>
-      <Link to="login">Sign in</Link>
+      <Link to="signin">Sign in</Link>
     </Col>
   )
 }

@@ -1,12 +1,28 @@
 import axios from 'axios';
 
-const axiosInstance = axios.create({
-  baseURL: 'https://conduit.productionready.io/api/',
-});
-
 const API_URLS = {
   LOGIN_USER: 'users/login',
   REGISTER_USER: 'users',
+  ARTICLES: 'articles',
+};
+
+const axiosConfig = {
+  baseURL: 'https://conduit.productionready.io/api/',
+};
+
+const axiosInstance = axios.create(axiosConfig);
+
+const tokenConfig = () => {
+  try {
+    const user = JSON.parse(localStorage.getItem('user'));
+    if (user) {
+      const { token } = user;
+      return { headers: { Authorization: `Token ${token}` } };
+    }
+  } catch (err) {
+    /* console.log('memo config can not read localStorage'); */
+  }
+  return {};
 };
 
 export const signUp = async user => {
@@ -25,19 +41,29 @@ export const clearLocalStorage = () => {
   localStorage.clear();
 };
 
-const isAuthorized = isLoggedIn => {
-  if (isLoggedIn) {
-    return true;
-  }
-  return false;
+export const getArticlesList = async (offset = 0) => {
+  return axiosInstance.get(`${API_URLS.ARTICLES}`, {
+    params: { limit: 10, offset },
+    ...tokenConfig(),
+  });
 };
 
-export const canActivate = isLoggedIn => show => {
-  if (isAuthorized(isLoggedIn) && !show) {
-    return false;
-  }
-  if (!isAuthorized(isLoggedIn) && show) {
-    return false;
-  }
-  return true;
+export const LikeArticle = async slug => {
+  return axiosInstance.post(`${API_URLS.ARTICLES}/${slug}/favorite`, {}, tokenConfig());
+};
+
+export const UnLikeArticle = async slug => {
+  return axiosInstance.delete(`${API_URLS.ARTICLES}/${slug}/favorite`, tokenConfig());
+};
+
+export const getArticle = async slug => {
+  return axiosInstance.get(`${API_URLS.ARTICLES}/${slug}`, { ...tokenConfig() });
+};
+
+export const createArticle = async data => {
+  return axiosInstance.post(`${API_URLS.ARTICLES}`, data, tokenConfig());
+};
+
+export const updateArticle = async (slug, data) => {
+  return axiosInstance.put(`${API_URLS.ARTICLES}/${slug}`, data, tokenConfig());
 };
