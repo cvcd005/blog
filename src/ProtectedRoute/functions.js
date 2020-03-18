@@ -1,14 +1,8 @@
-const canActivate = (isLoggedIn, reverse) => {
-  if (reverse) {
-    if (isLoggedIn) {
-      return false;
-    }
-    return true;
-  }
+const isAuthorized = isLoggedIn => {
   if (isLoggedIn) {
     return true;
   }
   return false;
 };
 
-export default canActivate;
+export default isAuthorized;

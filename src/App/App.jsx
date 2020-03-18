@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Switch, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 import PropTypes from 'prop-types';
 
-import { ProtectedRoute, canActivate, ProtectedRouteRederict }from '../ProtectedRoute'; 
+import { ProtectedRoute, isAuthorized }from '../ProtectedRoute'; 
 import Loader from '../Loader';
 import { HomePage, HomePageNotAuth } from '../HomePage';
 import LoginPage from '../LoginPage';
@@ -15,20 +15,19 @@ import './App.scss';
 
 const App = (props) => {
   const { isLoggedIn } = props;
-  const reverse = true;
 
   return (
     <BrowserRouter>
       <Loader>
-        <ProtectedRoute path="/blog" componentAuth={HomePage} componentNotAuth={HomePageNotAuth} isRoutingAllowed={canActivate(isLoggedIn)}/>
-        <ProtectedRoute exact path="/blog" componentAuth={AddArticleButton} componentNotAuth={()=>null} isRoutingAllowed={canActivate(isLoggedIn)} />
-        <ProtectedRoute exact path="/blog/articles/:slug" componentAuth={EditArticleButton} componentNotAuth={()=>null}  isRoutingAllowed={canActivate(isLoggedIn)} />
-        <ProtectedRouteRederict path="/blog/signin" component={LoginPage} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn, reverse)} />
-        <ProtectedRouteRederict path="/blog/signup" component={RegisterPage} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn, reverse)} />
+        <ProtectedRoute path="/blog" componentAuth={HomePage} componentNotAuth={HomePageNotAuth} isRoutingAllowed={isAuthorized(isLoggedIn)}/>
+        <ProtectedRoute exact path="/blog" componentAuth={AddArticleButton} componentNotAuth={()=>null} isRoutingAllowed={isAuthorized(isLoggedIn)} />
+        <ProtectedRoute exact path="/blog/articles/:slug" componentAuth={EditArticleButton} componentNotAuth={()=>null}  isRoutingAllowed={isAuthorized(isLoggedIn)} />
+        <ProtectedRoute path="/blog/signin" componentAuth={()=> <Redirect to="/blog" />} componentNotAuth={LoginPage} isRoutingAllowed={isAuthorized(isLoggedIn)} />
+        <ProtectedRoute path="/blog/signup" componentAuth={() => <Redirect to="/blog" />} componentNotAuth={RegisterPage} isRoutingAllowed={isAuthorized(isLoggedIn)} />
         <Route path="/blog" exact component={ListArticles} />
         <Route exact path="/blog/articles/:slug" render={({match}) => (<FullArticle slug={match.params.slug}/>)} />
-        <ProtectedRouteRederict path="/blog/add" component={AddArticle} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn)} />
-        <ProtectedRouteRederict path="/blog/articles/:slug/edit" component={EditArticle} addresToRedirect={'/blog'} isRoutingAllowed={canActivate(isLoggedIn)} />
+        <ProtectedRoute path="/blog/add" componentAuth={AddArticle} componentNotAuth={()=>null} isRoutingAllowed={isAuthorized(isLoggedIn)} />
+        <ProtectedRoute path="/blog/articles/:slug/edit" componentAuth={EditArticle} componentNotAuth={()=>null} isRoutingAllowed={isAuthorized(isLoggedIn)} />
         <Switch>
           <Redirect to={'/blog'} />
         </Switch>

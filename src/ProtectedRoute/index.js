@@ -1,5 +1,4 @@
-import ProtectedRouteRederict from './ProtectedRouteRederict';
-import canActivate from './functions';
+import isAuthorized from './functions';
 import ProtectedRoute from './ProtectedRoute';
 
-export { ProtectedRoute, canActivate, ProtectedRouteRederict };
+export { ProtectedRoute, isAuthorized };
